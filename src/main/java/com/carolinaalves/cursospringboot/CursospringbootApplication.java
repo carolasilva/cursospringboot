@@ -1,9 +1,14 @@
 package com.carolinaalves.cursospringboot;
 
 import com.carolinaalves.cursospringboot.domain.Categoria;
+import com.carolinaalves.cursospringboot.domain.Cidade;
+import com.carolinaalves.cursospringboot.domain.Estado;
 import com.carolinaalves.cursospringboot.domain.Produto;
 import com.carolinaalves.cursospringboot.repository.CategoriaRepository;
+import com.carolinaalves.cursospringboot.repository.CidadeRepository;
+import com.carolinaalves.cursospringboot.repository.EstadoRepository;
 import com.carolinaalves.cursospringboot.repository.ProdutoRepository;
+import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -19,6 +24,12 @@ public class CursospringbootApplication implements CommandLineRunner {
 
   @Autowired
   private ProdutoRepository produtoRepository;
+
+  @Autowired
+  private EstadoRepository estadoRepository;
+
+  @Autowired
+  private CidadeRepository cidadeRepository;
 
   public static void main(String[] args) {
     SpringApplication.run(CursospringbootApplication.class, args);
@@ -42,5 +53,18 @@ public class CursospringbootApplication implements CommandLineRunner {
 
     categoriaRepository.saveAll(Arrays.asList(cat1, cat2));
     produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
+
+    Estado est1 = new Estado(null, "Minas Gerais");
+    Estado est2 = new Estado(null, "São Paulo");
+
+    Cidade c1 = new Cidade(null, "Uberlândia", est1);
+    Cidade c2 = new Cidade(null, "São Paulo", est2);
+    Cidade c3 = new Cidade(null, "Campinas", est2);
+
+    est1.getCidades().add(c1);
+    est2.getCidades().addAll(Arrays.asList(c2, c3));
+
+    estadoRepository.saveAll(Arrays.asList(est1, est2));
+    cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
   }
 }
