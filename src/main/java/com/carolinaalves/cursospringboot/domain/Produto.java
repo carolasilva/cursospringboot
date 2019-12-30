@@ -1,5 +1,7 @@
 package com.carolinaalves.cursospringboot.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -19,6 +21,7 @@ public class Produto implements Serializable {
       joinColumns = @JoinColumn(name = "produto_id"),
       inverseJoinColumns = @JoinColumn(name = "categoria_id"))
 
+  @JsonIgnore
   private List<Categoria> categorias = new ArrayList<>();
 
   public Produto() {
