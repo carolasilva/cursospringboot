@@ -1,6 +1,7 @@
 package com.carolinaalves.cursospringboot.services;
 
 import com.carolinaalves.cursospringboot.domain.Categoria;
+import com.carolinaalves.cursospringboot.dto.CategoriaDto;
 import com.carolinaalves.cursospringboot.repository.CategoriaRepository;
 import com.carolinaalves.cursospringboot.services.exceptions.DataIntegrityException;
 import com.carolinaalves.cursospringboot.services.exceptions.ObjectNotFoundException;
@@ -51,5 +52,9 @@ public class CategoriaService {
   public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
     PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
     return repository.findAll(pageRequest);
+  }
+
+  public Categoria fromDto(CategoriaDto categoriaDto){
+    return new Categoria(categoriaDto.getId(), categoriaDto.getNome());
   }
 }
