@@ -1,5 +1,7 @@
 package com.carolinaalves.cursospringboot.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ public class Estado implements Serializable {
   private String nome;
 
   @OneToMany(mappedBy = "estado")
+  @JsonIgnore
   private List<Cidade> cidades = new ArrayList<>();
 
   public Estado() {
