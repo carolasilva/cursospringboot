@@ -2,8 +2,10 @@ package com.carolinaalves.cursospringboot.services;
 
 import com.carolinaalves.cursospringboot.domain.Categoria;
 import com.carolinaalves.cursospringboot.repository.CategoriaRepository;
+import com.carolinaalves.cursospringboot.services.exceptions.DataIntegrityException;
 import com.carolinaalves.cursospringboot.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -27,5 +29,14 @@ public class CategoriaService {
   public Categoria update(Categoria categoria) {
     find(categoria.getId());
     return repository.save(categoria);
+  }
+
+  public void delete(Integer id) {
+    find(id);
+    try {
+      repository.deleteById(id);
+    } catch(DataIntegrityViolationException e) {
+      throw new DataIntegrityException("Não é possível excluir uma categoria que possui produtos vinculados");
+    }
   }
 }
