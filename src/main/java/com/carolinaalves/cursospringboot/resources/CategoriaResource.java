@@ -1,6 +1,7 @@
 package com.carolinaalves.cursospringboot.resources;
 
 import com.carolinaalves.cursospringboot.domain.Categoria;
+import com.carolinaalves.cursospringboot.dto.CategoriaDto;
 import com.carolinaalves.cursospringboot.services.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,8 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/categorias")
@@ -44,5 +47,12 @@ public class CategoriaResource {
   public ResponseEntity<Void> delete(@PathVariable Integer id) {
     service.delete(id);
     return ResponseEntity.noContent().build();
+  }
+
+  @RequestMapping(method = RequestMethod.GET)
+  public ResponseEntity<List<CategoriaDto>> findAll() {
+    List<Categoria> categorias = service.findAll();
+    List<CategoriaDto> categoriasDto = categorias.stream().map(obj -> new CategoriaDto(obj)).collect(Collectors.toList());
+    return ResponseEntity.ok().body(categoriasDto);
   }
 }
