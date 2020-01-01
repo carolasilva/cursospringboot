@@ -1,6 +1,7 @@
 package com.carolinaalves.cursospringboot.domain;
 
 import com.carolinaalves.cursospringboot.domain.enums.TipoCliente;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -24,6 +25,7 @@ public class Cliente implements Serializable {
   private Set<String> telefones = new HashSet<>();
 
   @OneToMany(mappedBy = "cliente")
+  @JsonIgnore
   private List<Pedido> pedidos = new ArrayList<>();
 
   public Cliente() {
