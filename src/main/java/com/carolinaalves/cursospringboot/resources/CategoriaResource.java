@@ -11,10 +11,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -43,7 +40,7 @@ public class CategoriaResource {
   public ResponseEntity<Void> update(@Valid @RequestBody CategoriaDto categoriaDto, @PathVariable Integer id) {
     Categoria categoria = service.fromDto(categoriaDto);
     categoria.setId(id);
-    categoria = service.update(categoria);
+    service.update(categoria);
     return ResponseEntity.noContent().build();
   }
 
