@@ -1,9 +1,11 @@
 package com.carolinaalves.cursospringboot.dto;
 
 import com.carolinaalves.cursospringboot.domain.Cliente;
+import com.carolinaalves.cursospringboot.services.validation.ClienteUpdate;
 
 import java.io.Serializable;
 
+@ClienteUpdate
 public class ClienteDto implements Serializable {
   private Integer id;
   private String nome;
